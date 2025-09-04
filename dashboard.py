@@ -76,6 +76,7 @@ def kpi_cards():
 x = 1080
 y = 380
 
+x_bar = 540
 y_bar = 510
 
 @pn.depends(year_filter, country_filter, origin_filter, procedure_filter)
@@ -93,13 +94,13 @@ def trend_decisions(*events):
 def top_countries(*events):
     data = filter_data()
     agg = data.groupby("Country / territory of asylum/residence")[["Applied during year"]].sum()
-    return agg.sort_values("Applied during year", ascending=False).head(10).hvplot.bar(title="Top 10 Countries by Applications", width=x, height=y_bar, rot=30)
+    return agg.sort_values("Applied during year", ascending=False).head(10).hvplot.bar(title="Top 10 Countries by Applications", width=x_bar, height=y_bar, rot=30)
 
 @pn.depends(year_filter, country_filter, origin_filter, procedure_filter)
 def top_origins(*events):
     data = filter_data()
     agg = data.groupby("Origin")[["Applied during year"]].sum()
-    return agg.sort_values("Applied during year", ascending=False).head(10).hvplot.bar(title="Top 10 Origins by Applications", width=x, height=y_bar, rot=30)
+    return agg.sort_values("Applied during year", ascending=False).head(10).hvplot.bar(title="Top 10 Origins by Applications", width=x_bar, height=y_bar+45, rot=30)
 
 # ----------------------------------------
 # Export
@@ -124,8 +125,7 @@ summary_tab = pn.Column(
 
 analysis_tab = pn.Column(
     "## 🌍 Country & Origin Insights",
-    pn.Row(top_countries),
-    pn.Row(top_origins)
+    pn.Row(top_countries, top_origins)
 )
 
 # ----------------------------------------
