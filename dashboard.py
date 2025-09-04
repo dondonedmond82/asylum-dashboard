@@ -77,7 +77,7 @@ x = 1080
 y = 380
 
 x_bar = 540
-y_bar = 510
+y_bar = 380
 
 @pn.depends(year_filter, country_filter, origin_filter, procedure_filter)
 def trend_applications(*events):
@@ -125,6 +125,7 @@ summary_tab = pn.Column(
 
 analysis_tab = pn.Column(
     "## 🌍 Country & Origin Insights",
+    kpi_cards,
     pn.Row(top_countries, top_origins)
 )
 
